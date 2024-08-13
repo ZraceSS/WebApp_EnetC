@@ -38,9 +38,10 @@
         <ul>
         </form>     
         <?php 
-            echo "<div style ='float: left'>
-            <a href = newpost.php>สร้างกระทู้ใหม่</a>
-            </div><BR><BR>";
+            if (isset($_SESSION['id']))
+            {
+                echo "<div style ='float: left'><a href = newpost.php>สร้างกระทู้ใหม่</a></div><BR><BR>";
+            }
             for($n = 1 ;$n <=10;$n++){
                echo "<li><a href=post.php?id=$n>กระทู้ที่ $n</a>";
                if(isset($_SESSION['id']) && $_SESSION['role']=='a')
