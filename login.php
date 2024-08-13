@@ -34,7 +34,7 @@
             <br>
             <div>
                 ถ้ายังไม่ได้เป็นสมาชิก
-                <a href="register.html">กรุณาสมัครสมาชิก</a>
+                <a href="register.php">กรุณาสมัครสมาชิก</a>
                 <br>
                 <a href="index.php" >กลับหน้าหลัก</a>
             </div>
