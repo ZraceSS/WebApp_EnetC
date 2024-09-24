@@ -26,24 +26,24 @@
 
             if ($usr == 'admin' && $pass == 'ad1234')
             {
-                echo "ยินดีต้อนรับคุณ ADMIN <BR>";
                 $_SESSION['username']='admin';
                 $_SESSION['role']='a';
                 $_SESSION['id']=session_id();
+                header("location:index.php");
             }
             else if ($usr == 'member' && $pass == 'mem1234')
             {
-                echo "ยินดีต้อนรับคุณ MEMBER <BR>";
                 $_SESSION['username']='member';
                 $_SESSION['role']='m';
                 $_SESSION['id']=session_id();
+                header("location:index.php");
             }
             else
             {
-                echo "ชื่อบัญชีหรือรหัสผ่านไม่ถูกต้อง <BR>";
+                $_SESSION['error'] = 1;
+                header("location:login.php");
             }
         ?>
-        <a href='index.php'>กลับไปยังหน้าหลัก</a>
     </div>
 </body>
 </html>
