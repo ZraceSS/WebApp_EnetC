@@ -21,28 +21,65 @@
     <?php
         include "nav.php"
     ?>
-
-    <div class="mt-4" align="center">
-            <table style="border: 2px solid black; width: 40%;">
-                <tr><td colspan="2" style="background-color: #6CD2FE;">กรอกข้อมูล</td></tr>
-                <tr><td>ชื่อบัญชี:</td><td><input type="text" name="username"></td></tr>
-                <tr><td>รหัสผ่าน:</td><td><input type="password" name="password"></td></tr>
-                <tr><td>ชื่อ-นามสกุล:</td><td><input type="text" name="name"></td></tr>
-                <tr><td>เพศ:</td><td>
-                    <input type="radio" name="gender" value="m">
-                    ชาย<br>
-                    <input type="radio" name="gender" value="f">
-                    หญิง<br>
-                    <input type="radio" name="gender" value="o">
-                    อื่นๆ<br>
-                            </td></tr>
-                <tr><td>อีเมล:</td><td><input type="email" name="email"></td></tr>
-                <tr><td colspan="2" align="center"><input type="submit" value="สมัครสมาชิก"></td></tr>
-            </table>
-            <br>
-            <div>
-                <a href="index.php">กลับไปหน้าหลัก</a>
+    <div class="container-lg">
+        <div class="row mt-3">
+            <div class="col-sm-8 col-md-6 col-lg-5 mx-auto">
+                <div class='card mt-4 me-auto ms-auto'>
+                    <div class="card-header text-bg-primary">
+                        เข้าสู่ระบบ
+                    </div>
+                    <div class="card-body">
+                        <form action="register_save.php" method="post">
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">ชื่อบัญชี : </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input class="form-control" type="text" name="login" required>
+                                </div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">รหัสผ่าน : </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input class="form-control" type="password" name="pwd" required>
+                                </div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">ชื่อ-นามสกุล : </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input class="form-control" type="text" name="name" required>
+                                </div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">
+                                    เพศ :
+                                </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input type="radio" class="form-control-input" name="gender" value="m" required>ชาย<br>
+                                    <input type="radio" class="form-control-input" name="gender" value="f" required>หญิง<br>
+                                    <input type="radio" class="form-control-input" name="gender" value="o" required>อื่นๆ
+                                </div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">
+                                    อีเมล : 
+                                </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input class="form-control" type="text" name="email" required>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-arrow-down-square"></i> สมัครสมาชิก
+                                </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
+        </div>
+            <br>
+        <div class="mt-4 me-auto ms-auto" style="text-align: center;">
+            <a href="index.php">กลับไปหน้าหลัก</a>
+        </div>
     </div>
 </body>
 </html>

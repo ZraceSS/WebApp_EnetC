@@ -29,6 +29,11 @@ if (isset($_SESSION['id'])) {
                     echo "<div class='alert alert-danger mt-4 me-auto ms-auto' style='width: 400px'>ชื่อบัญชีหรือรหัสผ่านไม่ถูกต้อง</div>";
                     unset($_SESSION['error']);
                 }
+                else if (isset($_SESSION['error']) && $_SESSION['reg_success'] == 1)
+                {
+                    echo "<div class='alert alert-success mt-4 me-auto ms-auto' style='width: 400px'>สมัครสมาชิกสำเร็จ</div>";
+                    unset($_SESSION['reg_success']);
+                }
         ?>
         <div class='card mt-4 me-auto ms-auto' style="width: 400px;">
             <div class="card-header">
