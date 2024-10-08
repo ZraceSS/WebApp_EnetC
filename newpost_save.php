@@ -15,7 +15,7 @@
         $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
 
         $id = $_SESSION['user_id'];
-        $sql = "INSERT into post (title,content,post_date,cat_id,user_id) values ('$topic','$comment',Now(),'$catagory','$id')";
+        $sql = "INSERT into post (title,content,post_date,cat_id,user_id) values ('$topic','$comment',Now(),'$category','$id')";
         $conn->exec($sql);
         $conn = null;
         header("location:index.php");
