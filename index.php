@@ -21,27 +21,43 @@ session_start();
             include "nav.php"
     ?>
     <div class="container-fluid mt-4 ms-1 me-1">
-        หมวดหมู่ :
-        <a class="btn btn-outline-secondary btn-sm dropdown-toggle" role="button" data-bs-toggle="dropdown">--ทั้งหมด--</a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item">--ทั้งหมด--</a></li>
-            <li><a class="dropdown-item"> เรื่องทั่วไป </a></li>
-            <li><a class="dropdown-item"> เรื่องเรียน </a></li>
-        </ul>
+        <span class="dropdown">
+            หมวดหมู่ :
+            <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                --ทั้งหมด--
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="Button2">
+                <li><a href="#" class="dropdown-item">ทั้งหมด</a></li>
+                <?php
+                    $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
+                    $sql="SELECT * From category";
+                    foreach($conn->query($sql) as $row){
+                        echo "<li><a class=dropdown-item href=#>$row[name]</a></li>";
+                    }
+                    $conn=null;
+                ?>
+            </ul>
+        </span>
         <?php
-        if (isset($_SESSION['id'])) {
-            echo "<a class='btn btn-success btn-sm' style ='float: right' role='button' href='newpost.php'>สร้างกระทู้ใหม่</a>";
-        }
-        echo "<table class='table table-striped mt-4'>";
-        for ($n = 1; $n <= 10; $n++) {
-            echo "<tr><td><a class='' href=post.php?id=$n>กระทู้ที่ $n</a>";
-            if (isset($_SESSION['id']) && $_SESSION['role'] == 'a') {
-                echo "<a class='btn btn-danger btn-sm float-end' role='button' href='delete.php?id=$n'><i class='bi bi-trash3-fill'></i></a>";
+            if (isset($_SESSION['id'])) {
+                echo "<a class='btn btn-success btn-sm' style ='float: right' role='button' href='newpost.php'>สร้างกระทู้ใหม่</a>";
             }
-            echo "</td></tr>";
-        }
-        echo "</table>";
         ?>
+        <br>
+        <br>
+        <table class="table table-striped">
+            <?php
+                $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
+                $sql="SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date From post as t1 
+                Inner Join user as t2 ON (t1.user_id=t2.id) 
+                Inner Join category as t3 ON (t1.cat_id=t3.id) ORDER BY t1.post_date DESC";
+                $result=$conn->query($sql);
+                while($row = $result->fetch()){
+                    echo "<tr><td>[ $row[0] ] <a href='post.php?id=$row[2]' style='text-decoration:none'>$row[1]</a><br>$row[3] - $row[4]</td></tr>";
+                }
+                $conn=null;
+            ?>
+        </table>
     </div>
 </body>
 

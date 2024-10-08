@@ -4,6 +4,7 @@
     if(isset($_SESSION['id']))
     {
         header("location:index.php");
+        die();
     }
 ?>
 <!DOCTYPE html>
@@ -24,19 +25,17 @@
             $usr = $_POST['username'];
             $pass = $_POST['password'];
 
-            if ($usr == 'admin' && $pass == 'ad1234')
-            {
-                $_SESSION['username']='admin';
-                $_SESSION['role']='a';
+            $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
+            $sql = "SELECT * From user where login='$usr' and password=sha1('$pass')";
+            $result=$conn->query($sql);
+            if ($result->rowCount()==1){
+                $data=$result->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['username']=$data['login'];
+                $_SESSION['role']=$data['role'];
+                $_SESSION['user_id']=$data['id'];
                 $_SESSION['id']=session_id();
                 header("location:index.php");
-            }
-            else if ($usr == 'member' && $pass == 'mem1234')
-            {
-                $_SESSION['username']='member';
-                $_SESSION['role']='m';
-                $_SESSION['id']=session_id();
-                header("location:index.php");
+                die();
             }
             else
             {

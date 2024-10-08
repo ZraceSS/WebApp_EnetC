@@ -21,6 +21,21 @@
     <?php
         include "nav.php"
     ?>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 mt-3">
+            <?php
+                if (isset($_SESSION['add_login'])){
+                    if ($_SESSION['add_login'] == 'error'){
+                        echo "<div class='alert alert-danger'> ชื่อบัญชีซ้ำหรือฐานข้อมูลมีปัญหา</div>";
+                    }else{
+                        echo "<div class='alert alert-success'>เพิ่มบัญชีเรียบร้อยแล้ว</div>";
+                    }
+                    unset($_SESSION['add_login']);
+                }
+            ?>
+        </div>
+    </div>
     <div class="container-lg">
         <div class="row mt-3">
             <div class="col-sm-8 col-md-6 col-lg-5 mx-auto">
