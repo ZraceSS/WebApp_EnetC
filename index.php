@@ -49,15 +49,28 @@ session_start();
             <?php
                 $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
                 $sql="SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date From post as t1 
-                Inner Join user as t2 ON (t1.user_id=t2.id) 
-                Inner Join category as t3 ON (t1.cat_id=t3.id) ORDER BY t1.post_date DESC";
+                    Inner Join user as t2 ON (t1.user_id=t2.id) 
+                    Inner Join category as t3 ON (t1.cat_id=t3.id) ORDER BY t1.post_date DESC";
                 $result=$conn->query($sql);
                 while($row = $result->fetch()){
-                    echo "<tr><td>[ $row[0] ] <a href='post.php?id=$row[2]' style='text-decoration:none'>$row[1]</a><br>$row[3] - $row[4]</td></tr>";
+                    echo "<tr><td>[ $row[0] ] <a href='post.php?id=$row[2]' style='text-decoration:none'>$row[1]</a>";
+                    if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                        echo "<a onclick='confirmdelete($row[2])' class='btn btn-danger' style ='float: right' role='button'><i class='bi bi-trash'></i></a>";
+                    }
+                    echo "<br>$row[3] - $row[4]</td></tr>";
                 }
                 $conn=null;
             ?>
         </table>
+        <script>
+            function confirmdelete(a) {
+                if (confirm("ต้องการจะลบจริงหรือไม่") == true) {
+                    location.href = `delete.php?id=${a}`;
+                } else {
+                    text = "You canceled!";
+                }
+            };
+        </script>
     </div>
 </body>
 

@@ -3,8 +3,13 @@
     if (isset($_SESSION['id']) && $_SESSION['role'] == 'a')
     {
         $id = $_GET['id'];
-        echo "<br>ลบกระทู้หมายเลข : $id <br>";
-        echo "<a href='index.php'>กลับไปยังหน้าหลัก</a>";
+        $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
+        $sql = "DELETE From post where id=$id";
+        $conn->exec($sql);
+        $sql = "DELETE From comment where post_id=$id";
+        $conn->exec($sql);
+        $conn=null;
+        header("location:index.php");
     }
     else
     {
