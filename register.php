@@ -44,7 +44,7 @@
                         เข้าสู่ระบบ
                     </div>
                     <div class="card-body">
-                        <form action="register_save.php" method="post">
+                        <form action="register_save.php" method="post" onsubmit="return checkConfirmPassword()">
                             <div class="mt-3 row">
                                 <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">ชื่อบัญชี : </div>
                                 <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
@@ -54,7 +54,13 @@
                             <div class="mt-3 row">
                                 <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">รหัสผ่าน : </div>
                                 <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
-                                    <input class="form-control" type="password" name="pwd" required>
+                                    <input id="pwd" class="form-control" type="password" name="pwd" required>
+                                </div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-sm-3 col-md-3 col-lg-3 mx-auto">ใส่รหัสผ่านซ้ำ : </div>
+                                <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
+                                    <input onblur="checkConfirmPassword()" id="confirmpwd" class="form-control" type="password" name="confirmpwd" required>
                                 </div>
                             </div>
                             <div class="mt-3 row">
@@ -81,8 +87,8 @@
                                     <input class="form-control" type="text" name="email" required>
                                     <br>
                                     <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-arrow-down-square"></i> สมัครสมาชิก
-                                </button>
+                                        <i class="bi bi-arrow-down-square"></i> สมัครสมาชิก
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -96,5 +102,14 @@
             <a href="index.php">กลับไปหน้าหลัก</a>
         </div>
     </div>
+    <script>
+        function checkConfirmPassword() {
+            if (document.getElementById("pwd").value != document.getElementById("confirmpwd").value) {
+                alert("รหัสผ่านทั้งสองช่องไม่ตรงกัน");
+                return false;
+            }
+            return true;
+        };
+    </script>
 </body>
 </html>

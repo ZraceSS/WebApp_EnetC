@@ -39,7 +39,12 @@ if (isset($_SESSION['id'])) {
                     <div class="mb-1">Login : </div>
                     <input class="form-control" type="text" name="username">
                     <div class="mb-1">Password : </div>
-                    <input class="form-control" type="password" name="password">
+                    <div class="input-group">
+                        <input id="password" class="form-control" type="password" name="password">
+                        <button class="input-group-text" type="button" onclick="showpassword()">
+                            <i id="showpass" class="bi bi-eye-slash"></i>
+                        </button>
+                    </div>
                     <div class="text-center">
                         <input class="btn btn-secondary mt-2" type="submit" value="Login">
                         <a class="btn btn-secondary mt-2" href="login.php">Reset</a>
@@ -54,6 +59,17 @@ if (isset($_SESSION['id'])) {
             <a href="index.php">กลับหน้าหลัก</a>
         </div>
     </div>
+    <script>
+        function showpassword(){
+            let password = document.getElementById("password");
+            let showpass = document.getElementById("showpass");
+            let isPassword = password.type === "password";
+
+            password.type = isPassword ? "text" : "password";
+            showpass.classList.toggle("bi-eye", isPassword);
+            showpass.classList.toggle("bi-eye-slash-fill", !isPassword);
+        }
+    </script>
 </body>
 
 </html>
