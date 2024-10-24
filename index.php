@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_COOKIE['catagory'])){
+    $_COOKIE['catagory'] = "ทั้งหมด";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,23 +26,25 @@ session_start();
     <div class="container-fluid mt-4 ms-1 me-1">
         <span class="dropdown">
             หมวดหมู่ :
-            <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                --ทั้งหมด--
+            <button id="catSelect" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <?php
+                    echo $_COOKIE['catagory'];
+                ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="Button2">
-                <li><a href="#" class="dropdown-item">ทั้งหมด</a></li>
+                <li><a onclick="selectCatagory('ทั้งหมด')" class="dropdown-item">--ทั้งหมด--</a></li>
                 <?php
                     $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
-                    $sql="SELECT * From category";
+                    $sql="SELECT name From category";
                     foreach($conn->query($sql) as $row){
-                        echo "<li><a class=dropdown-item href=#>$row[name]</a></li>";
+                        echo "<li><a onclick='selectCatagory(\"$row[0]\")' class='dropdown-item'>$row[0]</a></li>";
                     }
                     $conn=null;
                 ?>
             </ul>
         </span>
         <?php
-            if (isset($_SESSION['id'])) {
+            if (isset($_SESSION['id']) && $_SESSION['role'] !='b') {
                 echo "<a class='btn btn-success btn-sm' style ='float: right' role='button' href='newpost.php'>สร้างกระทู้ใหม่</a>";
             }
         ?>
@@ -48,16 +53,25 @@ session_start();
         <table class="table table-striped">
             <?php
                 $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
-                $sql="SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date From post as t1 
+                $sql="SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date,t2.role From post as t1 
                     Inner Join user as t2 ON (t1.user_id=t2.id) 
                     Inner Join category as t3 ON (t1.cat_id=t3.id) ORDER BY t1.post_date DESC";
                 $result=$conn->query($sql);
                 while($row = $result->fetch()){
-                    echo "<tr><td>[ $row[0] ] <a href='post.php?id=$row[2]' style='text-decoration:none'>$row[1]</a>";
-                    if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
-                        echo "<a onclick='confirmdelete($row[2])' class='btn btn-danger' style ='float: right' role='button'><i class='bi bi-trash'></i></a>";
+                    if ($_COOKIE['catagory'] != "ทั้งหมด" && $row[0] != $_COOKIE['catagory'] || $row[5] == 'b'){
+                        continue;
                     }
-                    echo "<br>$row[3] - $row[4]</td></tr>";
+                    echo "<tr><td>[ $row[0] ] <a href='post.php?id=$row[2]' style='text-decoration:none'>$row[1]</a><div style ='float: right'>";
+                    if(isset($_SESSION['id']) && $_SESSION['username'] == $row[3]){
+                        echo "<a onclick='goeditpost($row[2])' class='btn btn-warning' role='button'><i class='bi bi-pencil-fill'></i></a> ";
+                    }
+                    if(isset($_SESSION['id']) && $_SESSION['role']=='m' && $_SESSION['username'] == $row[3]){
+                        echo "<a onclick='confirmdelete($row[2])' class='btn btn-danger' role='button'><i class='bi bi-trash'></i></a>";
+                    }
+                    else if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                        echo "<a onclick='confirmdelete($row[2])' class='btn btn-danger' role='button'><i class='bi bi-trash'></i></a>";
+                    }
+                    echo "</div><br>$row[3] - $row[4]</td></tr>";
                 }
                 $conn=null;
             ?>
@@ -69,6 +83,17 @@ session_start();
                 } else {
                     text = "You canceled!";
                 }
+            };
+
+            function goeditpost(a) {
+                location.href = `editpost.php?id=${a}`;
+            };
+
+            function selectCatagory(a){
+                let catsel = document.getElementById("catSelect");
+                document.cookie = "catagory=" + a + ";path=/"
+                catsel.textContent = a;
+                location.reload();
             };
         </script>
     </div>
