@@ -23,7 +23,7 @@ if (!isset($_COOKIE['catagory'])){
     <?php
             include "nav.php"
     ?>
-    <div class="container-fluid mt-4 ms-1 me-1">
+    <div class="container-fluid mt-4 ms-auto me-auto">
         <span class="dropdown">
             หมวดหมู่ :
             <button id="catSelect" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

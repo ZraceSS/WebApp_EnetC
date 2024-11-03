@@ -8,13 +8,13 @@
                 } else {
                     echo "<li class='nav-item dropdown'>";
                     echo "<a class='btn btn-outline-secondary btn-sm dropdown-toggle' role='button' data-bs-toggle='dropdown'><i class='bi bi-person-lines-fill'></i> $_SESSION[username]</a>";
-                    echo "<ul class='dropdown-menu'>";
+                    echo "<div class='dropdown-menu dropdown-menu-end'>";
                     if ($_SESSION['role'] == "a"){
-                        echo "<li><a class='dropdown-item' href='category.php'><i class='bi bi-bookmarks'></i> จัดการหมวดหมู่</a></li>";
-                        echo "<li><a class='dropdown-item' href='user.php'><i class='bi bi-person-check'></i> จัดการผู้ใช้งาน</a></li>";
+                        echo "<a class='dropdown-item' href='category.php'><i class='bi bi-bookmarks'></i> จัดการหมวดหมู่</a>";
+                        echo "<a class='dropdown-item' href='user.php'><i class='bi bi-person-check'></i> จัดการผู้ใช้งาน</a>";
                     }
-                    echo "<li><a class='dropdown-item' href='logout.php'><i class='bi bi-power'></i> ออกจากระบบ</a></li>";
-                    echo "</ul></li>";
+                    echo "<a class='dropdown-item' href='logout.php'><i class='bi bi-power'></i> ออกจากระบบ</a>";
+                    echo "</div></li>";
                 }
             ?>
         </ul>
