@@ -25,6 +25,9 @@ session_start();
                         if ($_SESSION['cat_add_save'] == 'done'){
                             echo "<div class='alert alert-success'>เพิ่มหมวดหมู่เรียบร้อยแล้ว</div>";
                         }
+                        else if ($_SESSION['cat_add_save'] == 'undone'){
+                            echo "<div class='alert alert-success'>หมวดหมู่ซ้ำ</div>";
+                        }
                         unset($_SESSION['cat_add_save']);
                     }
                     if (isset($_SESSION['cat_delete_save'])){
@@ -36,6 +39,9 @@ session_start();
                     if (isset($_SESSION['cat_edit_save'])){
                         if ($_SESSION['cat_edit_save'] == 'done'){
                             echo "<div class='alert alert-success'>แก้ไขหมู่เรียบร้อยแล้ว</div>";
+                        }
+                        else if ($_SESSION['cat_edit_save'] == 'undone'){
+                            echo "<div class='alert alert-success'>หมวดหมู่ซ้ำ</div>";
                         }
                         unset($_SESSION['cat_edit_save']);
                     }

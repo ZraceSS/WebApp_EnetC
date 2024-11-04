@@ -32,12 +32,12 @@ if (!isset($_COOKIE['catagory'])){
                 ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="Button2">
-                <li><a onclick="selectCatagory('ทั้งหมด')" class="dropdown-item">--ทั้งหมด--</a></li>
+                <li><a onclick="selectCategory('ทั้งหมด')" class="dropdown-item">--ทั้งหมด--</a></li>
                 <?php
                     $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
                     $sql="SELECT name From category";
                     foreach($conn->query($sql) as $row){
-                        echo "<li><a onclick='selectCatagory(\"$row[0]\")' class='dropdown-item'>$row[0]</a></li>";
+                        echo "<li><a onclick='selectCategory(\"$row[0]\")' class='dropdown-item'>$row[0]</a></li>";
                     }
                     $conn=null;
                 ?>
@@ -89,7 +89,7 @@ if (!isset($_COOKIE['catagory'])){
                 location.href = `editpost.php?id=${a}`;
             };
 
-            function selectCatagory(a){
+            function selectCategory(a){
                 let catsel = document.getElementById("catSelect");
                 document.cookie = "catagory=" + a + ";path=/"
                 catsel.textContent = a;
