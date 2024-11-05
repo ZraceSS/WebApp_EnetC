@@ -12,24 +12,25 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-<center>
-    <h1>Webboard Easy</h1>
+    <center>
+        <h1>Webboard Easy</h1>
     </center>
     <?php
-            include "nav.php"
+        include "nav.php"
     ?>
     <div align = "center">
+        <br>
         <?php
             $num = $_GET['id'];
-            echo "ต้องการดูกระทู้หมายเลข ". $num."<BR>";
-            if ($num % 2 == 0)
-            {
-                echo "เป็นกระทู้หมายเลขคู่";
-            }
-            else
-            {
-                echo "เป็นกระทู้หมายเลขคี่";
-            }
+            //echo "ต้องการดูกระทู้หมายเลข ". $num."<BR>";
+            //if ($num % 2 == 0)
+            //{
+                //echo "เป็นกระทู้หมายเลขคู่";
+            //}
+            //else
+            //{
+                //echo "เป็นกระทู้หมายเลขคี่";
+            //}
             $conn=new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root", "");
             $sql = "SELECT t1.title,t1.id,t2.login,t1.post_date,t1.content From post as t1 
                 Inner Join user as t2 ON (t1.user_id=t2.id) where t1.id=$num";
